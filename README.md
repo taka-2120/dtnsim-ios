@@ -15,6 +15,8 @@
 
 This is a DTN (Delay/Disruption Tolerant Networking) simulator for iOS. This project was inspired by [h-ohsaki/dtnsim](https://github.com/h-ohsaki/dtnsim).
 
+https://github.com/user-attachments/assets/84f29d74-4876-4428-9bfc-e05ac03b05ce
+
 ## Installation
 
 ### TestFlight
