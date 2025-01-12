@@ -25,10 +25,7 @@ struct Message: Identifiable {
         isReceived = sender
 
         var slope = (destination.position.y - start.position.y) / (destination.position.x - start.position.x)
-        if destination.position.y < start.position.y && slope > 0 {
-            slope *= -1
-        }
-        if start.position.y < destination.position.y && slope < 0 {
+        if destination.position.y < start.position.y && slope > 0 || start.position.y < destination.position.y && slope < 0 {
             slope *= -1
         }
         let dx = Constant.speed * cos(atan(slope)) * (destination.position.x < start.position.x ? -1 : 1)
@@ -48,7 +45,7 @@ extension Message {
     func isDotNearby(from messages: [Message]) -> Bool {
         let messagesOnSameLine = messages.filter { $0.start.id == self.destination.id && $0.destination.id == self.start.id }
         for message in messagesOnSameLine {
-            if isAround(of: message.currentPosition) && message.isReceived == true {
+            if isAround(of: message.currentPosition) && message.isReceived {
                 return true
             }
         }

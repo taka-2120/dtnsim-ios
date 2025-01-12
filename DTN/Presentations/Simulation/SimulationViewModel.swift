@@ -90,10 +90,7 @@ class SimulationViewModel {
 
     private func calculateDifference(for message: Message) -> CGPoint {
         var slope = (message.destination.position.y - message.start.position.y) / (message.destination.position.x - message.start.position.x)
-        if message.destination.position.y < message.start.position.y && slope > 0 {
-            slope *= -1
-        }
-        if message.start.position.y < message.destination.position.y && slope < 0 {
+        if message.destination.position.y < message.start.position.y && slope > 0 || message.start.position.y < message.destination.position.y && slope < 0 {
             slope *= -1
         }
         let dx = Constant.speed * cos(atan(slope)) * (message.destination.position.x < message.start.position.x ? -1 : 1)
