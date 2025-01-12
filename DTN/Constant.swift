@@ -1,5 +1,5 @@
 //
-//  AppConst.swift
+//  Constant.swift
 //  DTN
 //
 //  Created by Yu Takahashi on 12/18/24.

@@ -22,7 +22,7 @@ struct SimulationView: View {
                     .frame(width: 10, height: 10)
                     .position(message.currentPosition)
             }
-            
+
             VStack {
                 HStack {
                     VStack {
@@ -36,9 +36,12 @@ struct SimulationView: View {
                         Image(systemName: "arrow.triangle.2.circlepath")
                     }
                 }
-                .padding()
+                if viewModel.areAllMessagesReceived {
+                    Text("ALL MESSAGES RECEIVED: \(String(format: "%.1f", viewModel.totalTimeUntilAllMessagesReceived))s")
+                }
                 Spacer()
             }
+            .padding()
         }
     }
 }

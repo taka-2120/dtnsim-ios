@@ -10,7 +10,7 @@ import Foundation
 struct Dot: Identifiable {
     let id = UUID()
     var position: CGPoint
-    
+
     init(at position: CGPoint) {
         self.position = position
     }

@@ -16,16 +16,16 @@ struct Message: Identifiable {
     var isMoving: Bool
     var isReceived: Bool
     var timer: Timer?
-    
+
     init(from start: Dot, to destination: Dot, sender: Bool = false) {
         currentPosition = start.position
         self.start = start
         self.destination = destination
         isMoving = true
         isReceived = sender
-        
+
         var slope = (destination.position.y - start.position.y) / (destination.position.x - start.position.x)
-        if destination.position.y < start.position.y && 0 < slope {
+        if destination.position.y < start.position.y && slope > 0 {
             slope *= -1
         }
         if start.position.y < destination.position.y && slope < 0 {
@@ -39,16 +39,16 @@ struct Message: Identifiable {
 
 extension Message {
     func isAround(of point: CGPoint) -> Bool {
-        let threshold: CGPoint = .init(x: Constant.speed * abs(self.difference.x) / 2, y: Constant.speed * abs(self.difference.y) / 2)
-        return (point.x - threshold.x < self.currentPosition.x && self.currentPosition.x < point.x + threshold.x)
-        &&
-        (point.y - threshold.y < self.currentPosition.y && self.currentPosition.y < point.y + threshold.y)
+        let threshold: CGPoint = .init(x: Constant.speed * abs(difference.x) / 2, y: Constant.speed * abs(difference.y) / 2)
+        return (point.x - threshold.x < currentPosition.x && currentPosition.x < point.x + threshold.x)
+            &&
+            (point.y - threshold.y < currentPosition.y && currentPosition.y < point.y + threshold.y)
     }
-    
+
     func isDotNearby(from messages: [Message]) -> Bool {
-        let messagesOnSameLine = messages.filter({ $0.start.id == self.destination.id && $0.destination.id == self.start.id })
+        let messagesOnSameLine = messages.filter { $0.start.id == self.destination.id && $0.destination.id == self.start.id }
         for message in messagesOnSameLine {
-            if self.isAround(of: message.currentPosition) && message.isReceived == true {
+            if isAround(of: message.currentPosition) && message.isReceived == true {
                 return true
             }
         }
